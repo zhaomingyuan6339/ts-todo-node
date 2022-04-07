@@ -11,7 +11,7 @@ app.use(bodyParse.json())
 app.all('*', (req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Credentials:true')
-  res.header("Content-Security-Policy: upgrade-insecure-requests");
+  res.header('Content-Security-Policy: upgrade-insecure-requests')
   res.header(
     'Access-Control-Allow-Headers',
     'Content-Type, Host, Content-Length, Authorization, Accept,X-Request-With, yourHeaderFeild'
@@ -53,18 +53,22 @@ app.post('/remove', (req, res) => {
 })
 
 app.post('/add', (req, res) => {
-  const todo = JSON.parse(req.body.todo) as ITodoData
-  let todolist:ITodoData[] = JSON.parse(readFile('todo.json'))
-  const _todo: null | ITodoData = todolist.find(
-    item => item.content === todo.content
-  )
-  if (!_todo) {
-    todolist.push(todo)
-    writeFile('todo.json', todolist)
-  }
+  const _todo = JSON.parse(req.body.todo) as ITodoData
+  fileOperation('todo.json', (todo: ITodoData[]) => {
+    const iExist = todo.find(item => item.content === _todo.content)
+    if (iExist) {
+      res.send({
+        stat: 100,
+        msg: '该事项已经存在！'
+      })
+      return
+    }
+    todo.push(_todo)
+    return todo
+  })
   res.send({
-    stat:1001,
-    msg:'该事项已经添加过了！'
+    stat: 200,
+    msg: 'ok'
   })
 })
 

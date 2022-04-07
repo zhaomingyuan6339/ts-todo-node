@@ -58,13 +58,17 @@ export function addTodo(
   descriptor: PropertyDescriptor
 ) {
   const _origin = descriptor.value
-  descriptor.value = function (todo:ITodoData) {
+  descriptor.value = function (todo: ITodoData) {
     axios
-      .post<{ stat: number; msg: string }>(`${PREFIX}/add`, { todo: JSON.stringify(todo) })
+      .post<{ stat: number; msg: string }>(`${PREFIX}/add`, {
+        todo: JSON.stringify(todo)
+      })
       .then(res => {
-        if (res.data.stat === 200) {
-          _origin.call(this, todo)
+        if (res.data.stat === 100) {
+          alert(res.data.msg)
+          return
         }
+        _origin.call(this, todo)
       })
   }
 }

@@ -1,5 +1,6 @@
 import TodoEvent from './scripts/todoEvent'
 import { ITodoData } from './scripts/type'
+import {nanoid} from 'nanoid'
 ;(function (doc) {
   const oInput: HTMLInputElement = document.querySelector('input')
   const oAddBtn: HTMLButtonElement = document.querySelector('button')
@@ -14,7 +15,6 @@ import { ITodoData } from './scripts/type'
   const init = () => {
     bindEvent()
   }
-  let count = 3
   function bindEvent() {
     oAddBtn.addEventListener('click', handleAddBtnClick, false)
 
@@ -24,9 +24,8 @@ import { ITodoData } from './scripts/type'
   function handleAddBtnClick() {
     const inputVal: string = oInput.value.trim()
     if (inputVal.length) {
-      count++
       const ret = todoEvent.addTodo({
-        id: count,
+        id: parseFloat(Math.random().toString(36)),
         content: inputVal,
         completed: false
       })
