@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "vite",
-    "server":"ts-node-dev ./server/app.ts"
+    "server": "ts-node-dev ./server/app.ts"
   },
   "keywords": [],
   "author": "",

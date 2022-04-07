@@ -1,3 +1,9 @@
+import {
+  addTodo,
+  getTodoList,
+  handleRemoveTodo,
+  toogleTodo
+} from './todoService'
 import TodoDom from './todoDom'
 import { ITodoData } from './type'
 
@@ -6,12 +12,15 @@ export default class TodoEvent extends TodoDom {
   constructor(todoData: ITodoData[], todoWrapper: HTMLElement) {
     super(todoWrapper)
     this.todoData = todoData
-    this.init()
+    this.init(todoData)
   }
-  private init() {
+  @getTodoList
+  private init(todoData: ITodoData[]) {
+    this.todoData = todoData
     this.initList(this.todoData)
   }
   // 增加项
+  @addTodo
   public addTodo(todo: ITodoData): undefined | number {
     const _todo: null | ITodoData = this.todoData.find(
       item => item.content === todo.content
@@ -23,12 +32,13 @@ export default class TodoEvent extends TodoDom {
     }
     return 1001
   }
-
+  @handleRemoveTodo
   public removeTodo(target: HTMLElement, id: number) {
     this.todoData = this.todoData.filter(item => item.id !== id)
     this.removeItem(target)
   }
 
+  @toogleTodo
   public toogleComplete(target: HTMLElement, id: number) {
     this.todoData = this.todoData.map(item => {
       if (item.id === id) {

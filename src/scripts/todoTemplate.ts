@@ -8,7 +8,7 @@ export default class TodoTemplate {
     }/>
     <span style="text-decoration:${
       tododata.completed ? 'line-through' : 'none'
-    }">${tododata.content}</span>
+    }" title=${tododata.content}>${tododata.content}</span>
     <button data-id="${tododata.id}">删除</button>
     `
   }

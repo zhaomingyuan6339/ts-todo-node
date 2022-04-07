@@ -6,21 +6,7 @@ import { ITodoData } from './scripts/type'
   const oTodoList: HTMLElement = document.querySelector('.todo-wrapper')
 
   const todoData: ITodoData[] = [
-    {
-      id: 1,
-      content: '吃饭',
-      completed: true
-    },
-    {
-      id: 2,
-      content: '睡觉',
-      completed: true
-    },
-    {
-      id: 3,
-      content: '打豆豆',
-      completed: true
-    }
+    
   ]
   // 导入todoEvent类
   const todoEvent = new TodoEvent(todoData, oTodoList)
